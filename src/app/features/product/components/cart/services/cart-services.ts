@@ -14,31 +14,31 @@ export class CartServices {
   addCard(productId: string): Observable<any> {
     const headers = {
       'Content-Type': 'application/json',
-      Authorization: `${this.authServices.getToken()}`,
+      token: `${this.authServices.getToken()}`,
     };
-    return this.http.post(environment.baseUrl + 'cart', productId, { headers });
+    return this.http.post(environment.baseUrl + 'cart', { productId }, { headers });
   }
 
   updateCard(count: string, productId: string): Observable<any> {
     const headers = {
       'Content-Type': 'application/json',
-      Authorization: `${this.authServices.getToken()}`,
+      token: `${this.authServices.getToken()}`,
     };
     return this.http.put(environment.baseUrl + 'cart' + productId, count, { headers });
   }
 
-    loggedCard():Observable<any> {
+  loggedCard(): Observable<any> {
     const headers = {
-    'Content-Type': 'application/json',
-    'Authorization': `${this.authServices.getToken()}`, 
-  };
-   return this.http.get(environment.baseUrl + 'cart',{ headers });
+      'Content-Type': 'application/json',
+      token: `${this.authServices.getToken()}`,
+    };
+    return this.http.get(environment.baseUrl + 'cart', { headers });
   }
 
   removeItem(productId: string): Observable<any> {
     const headers = {
       'Content-Type': 'application/json',
-      Authorization: `${this.authServices.getToken()}`,
+      token: `${this.authServices.getToken()}`,
     };
     return this.http.delete(environment.baseUrl + 'cart' + productId, { headers });
   }
@@ -46,7 +46,7 @@ export class CartServices {
   clearCard(): Observable<any> {
     const headers = {
       'Content-Type': 'application/json',
-      Authorization: `${this.authServices.getToken()}`,
+      token: `${this.authServices.getToken()}`,
     };
     return this.http.delete(environment.baseUrl + 'cart', { headers });
   }
