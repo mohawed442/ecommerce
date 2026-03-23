@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../../../../environment/environment.prod';
 import { Observable } from 'rxjs';
 import { AuthServices } from '../../../../../core/layouts/auth/services/auth-services';
+import { ICart } from '../models/icart';
 
 @Injectable({
   providedIn: 'root',
@@ -11,43 +12,30 @@ export class CartServices {
   private http = inject(HttpClient);
   private authServices = inject(AuthServices);
 
-  addCard(productId: string): Observable<any> {
-    const headers = {
-      'Content-Type': 'application/json',
-      token: `${this.authServices.getToken()}`,
+  private get myHeaders() {
+    return {
+      token: this.authServices.getToken() || '',
     };
-    return this.http.post(environment.baseUrl + 'cart', { productId }, { headers });
+  }
+  addCard(productId: string): Observable<ICart> {
+    return this.http.post<ICart>(environment.baseUrl + 'cart', { productId }, { headers: this.myHeaders });
   }
 
-  updateCard(count: string, productId: string): Observable<any> {
-    const headers = {
-      'Content-Type': 'application/json',
-      token: `${this.authServices.getToken()}`,
-    };
-    return this.http.put(environment.baseUrl + 'cart' + productId, count, { headers });
+  updateCard(count: string, productId: string): Observable<ICart> {
+    return this.http.put<ICart>(environment.baseUrl + 'cart/' + productId, count, {
+      headers: this.myHeaders,
+    });
   }
 
-  loggedCard(): Observable<any> {
-    const headers = {
-      'Content-Type': 'application/json',
-      token: `${this.authServices.getToken()}`,
-    };
-    return this.http.get(environment.baseUrl + 'cart', { headers });
+  loggedCard(): Observable<ICart> {
+    return this.http.get<ICart>(environment.baseUrl + 'cart', { headers: this.myHeaders });
   }
 
-  removeItem(productId: string): Observable<any> {
-    const headers = {
-      'Content-Type': 'application/json',
-      token: `${this.authServices.getToken()}`,
-    };
-    return this.http.delete(environment.baseUrl + 'cart' + productId, { headers });
+  removeItem(productId: string): Observable<ICart> {
+    return this.http.delete<ICart>(environment.baseUrl + 'cart/' + productId, { headers: this.myHeaders });
   }
 
-  clearCard(): Observable<any> {
-    const headers = {
-      'Content-Type': 'application/json',
-      token: `${this.authServices.getToken()}`,
-    };
-    return this.http.delete(environment.baseUrl + 'cart', { headers });
+  clearCard(): Observable<ICart> {
+    return this.http.delete<ICart>(environment.baseUrl + 'cart', { headers: this.myHeaders });
   }
 }

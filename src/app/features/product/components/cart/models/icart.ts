@@ -1,7 +1,7 @@
 
 export interface ICart {
   status: string;
-  message?: string; // اختياري لأنه مش بيجي في الـ Get
+  message?: string; 
   numOfCartItems: number;
   cartId: string;
   data: ICartData;
@@ -21,7 +21,7 @@ export interface ICartProduct {
   count: number;
   price: number;
   _id: string;
-  product: IProductDetails; // هنا التعديل: المنتج عبارة عن Object كامل
+  product: IProductDetails; 
 }
 
 export interface IProductDetails {
