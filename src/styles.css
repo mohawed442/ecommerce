@@ -37,6 +37,66 @@
     rgba(145, 158, 171, 0.12) 0px 1px 10px 0px;
   --font-family: 'Encode Sans Expanded', sans-serif;
   --color-rating: #ffc908;
+
+  --animate-bounce-in: bounce-in 0.5s ease-out forwards;
+}
+/* دخول من اليمين */
+@keyframes slide-in-right {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+.animate-slide-in-right {
+  animation: slide-in-right 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* دخول من الشمال */
+@keyframes slide-in-left {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+.animate-slide-in-left {
+  animation: slide-in-left 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* دخول من فوق */
+@keyframes slide-in-top {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.animate-slide-in-top {
+  animation: slide-in-top 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes slide-in-bottom {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.animate-slide-in-bottom {
+  animation: slide-in-bottom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 .product .btn {
   transition:
