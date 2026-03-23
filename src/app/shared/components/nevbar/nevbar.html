@@ -22,10 +22,6 @@
                         aria-current="page">Home</a>
                 </li>
                 <li>
-                    <a routerLink="cart" routerLinkActive="text-main"
-                        class="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-main md:p-0 md:dark:hover:bg-transparent">Cart</a>
-                </li>
-                <li>
                     <a routerLink="products" routerLinkActive="text-main"
                         class="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-main md:p-0 md:dark:hover:bg-transparent">products</a>
                 </li>
@@ -41,12 +37,31 @@
 
             <ul
                 class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-default rounded-base bg-neutral-secondary-soft md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-neutral-primary">
+                <li class="relative flex items-center">
+                    <a routerLink="cart" routerLinkActive="text-main border-b-2 border-main"
+                        class="relative flex items-center gap-2 py-2 px-3 text-heading hover:text-main transition-all group">
+
+                        <div class="relative flex items-center">
+                            <i class="fa fa-shopping-cart text-xl"></i>
+
+                            <span
+                                class="absolute -top-3 -right-3 bg-main text-white text-[11px] font-bold w-5 h-5 flex items-center justify-center rounded-full border-2 border-white shadow-sm group-hover:scale-110 transition-transform">
+                                {{count()}}
+                            </span>
+                        </div>
+
+                        <span class="font-medium">Cart</span>
+                    </a>
+                </li>
+
                 <li>
                     <a (click)="logout()"
                         class="cursor-pointer block py-2 px-3 text-heading rounded md:bg-transparent md:p-0 md:hover:text-main"
                         aria-current="page">logout</a>
                 </li>
             </ul>
+
+
 
             }@else{
             <ul

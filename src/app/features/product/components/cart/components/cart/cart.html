@@ -1,1 +1,97 @@
-<p>cart works!</p>
+@if (isLoading) {
+<app-loading />
+}
+
+@if (cartData && cartData.numOfCartItems > 0) {
+<section class="container mx-auto my-10 p-6 bg-gray-50 rounded-lg shadow-sm animate__animated animate__fadeIn">
+    <div class="flex justify-between items-center mb-8 border-b pb-4">
+        <h1 class="text-3xl font-bold text-gray-800">سلة المشتريات</h1>
+        <div class="text-left">
+            <p class="text-gray-600">عدد القطع: <span class="text-main font-bold">{{ cartData.numOfCartItems }}</span></p>
+            <p class="text-gray-600">إجمالي السعر: <span class="text-main font-bold">{{ cartData.data?.totalCartPrice }} EGP</span></p>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-2 space-y-4">
+            @for (item of cartData.data?.products; track item._id) {
+            <div class="flex flex-col md:flex-row items-center bg-white p-4 rounded-xl border border-gray-100 hover:shadow-md transition-shadow">
+                <div class="w-32 h-32 flex-shrink-0">
+                    <img [src]="item.product.imageCover" [alt]="item.product.title" class="w-full h-full object-contain rounded-md">
+                </div>
+
+                <div class="md:ms-6 flex-grow text-center md:text-right mt-4 md:mt-0">
+                    <h3 class="text-lg font-semibold text-gray-800">{{ item.product.title }}</h3>
+                    <p class="text-sm text-gray-500 mb-2">{{ item.product.brand.name }} | {{ item.product.category.name }}</p>
+                    <p class="text-main font-bold">{{ item.price }} EGP</p>
+
+                    <button (click)="removeItem(item.product._id)" [disabled]="isLoading"
+                        class="cursor-pointer text-red-500 text-sm mt-2 hover:underline disabled:opacity-50">
+                        <i class="fa-regular fa-trash-can me-1"></i> حذف
+                    </button>
+                </div>
+
+                <div class="ms-5 flex items-center bg-white rounded-md border border-gray-200 p-0.5 shadow-sm">
+                    <button (click)="updateCount(item.product._id, (+item.count - 1))" [disabled]="isLoading || +item.count <= 1"
+                        class="cursor-pointer w-7 h-7 flex items-center justify-center rounded bg-gray-50 text-gray-500 hover:bg-red-50 hover:text-red-600 transition-all disabled:opacity-30">
+                        <i class="fa-solid fa-minus text-[10px]"></i>
+                    </button>
+
+                    <span class="px-3 font-semibold text-sm text-gray-700 min-w-[35px] text-center">
+                        {{ item.count }}
+                    </span>
+
+                    <button (click)="updateCount(item.product._id, (+item.count + 1))" [disabled]="isLoading"
+                        class="w-7 h-7 flex items-center justify-center rounded bg-gray-50 text-gray-500 hover:bg-main hover:text-white transition-all cursor-pointer disabled:opacity-30">
+                        <i class="fa-solid fa-plus text-[10px]"></i>
+                    </button>
+                </div>
+            </div>
+            }
+        </div>
+
+        <div class="bg-white p-6 rounded-xl border border-gray-100 h-fit sticky top-15 shadow-sm">
+            <h2 class="text-xl font-bold mb-4 border-b pb-2 text-gray-800">ملخص الطلب</h2>
+            <div class="space-y-3">
+                <div class="flex justify-between text-gray-600">
+                    <span>السعر الأصلي</span>
+                    <span>{{ cartData.data?.totalCartPrice }} EGP</span>
+                </div>
+                <div class="flex justify-between text-gray-600">
+                    <span>مصاريف الشحن</span>
+                    <span class="text-green-500 font-medium">مجاني</span>
+                </div>
+                <hr class="border-gray-100">
+                <div class="flex justify-between text-xl font-bold text-gray-800">
+                    <span>الإجمالي</span>
+                    <span class="text-main">{{ cartData.data?.totalCartPrice }} EGP</span>
+                </div>
+            </div>
+
+            <button [disabled]="isLoading"
+                class="w-full cursor-pointer bg-main text-white py-3 rounded-lg mt-6 font-bold hover:bg-opacity-90 transition-all shadow-md disabled:bg-gray-400">
+                إتمام الشراء (Checkout)
+            </button>
+
+            <button (click)="clearCard()" [disabled]="isLoading"
+                class="w-full cursor-pointer text-red-500 border border-red-500 py-2 rounded-lg mt-3 text-sm hover:bg-red-50 transition-colors disabled:opacity-50">
+                مسح السلة بالكامل
+            </button>
+        </div>
+    </div>
+</section>
+} @else {
+<div class="container mx-auto my-20 p-10 text-center animate__animated animate__fadeIn">
+    <div class="mb-6">
+        <div class="bg-gray-100 w-32 h-32 rounded-full flex items-center justify-center mx-auto shadow-inner">
+            <i class="fa-solid fa-cart-shopping text-6xl text-gray-300"></i>
+        </div>
+    </div>
+    <h2 class="text-3xl font-bold text-gray-800">سلتك فارغة حالياً</h2>
+    <p class="text-gray-500 mt-3 text-lg">يبدو أنك لم تضف أي منتجات بعد. ابدأ التسوق الآن واكتشف أفضل العروض!</p>
+    <button routerLink="/home" 
+            class="mt-8 bg-main text-white px-10 py-3 rounded-full font-bold hover:shadow-lg transition-all active:scale-95">
+        اذهب للتسوق
+    </button>
+</div>
+}

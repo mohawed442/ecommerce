@@ -38,18 +38,18 @@ export class MainSlider {
     nav: true,
   };
 
-  slidesStore = signal<any[]>([
-    {
-      id: 'slide-1',
-      text: 'عرض خاص',
-      positionClass: 'items-center justify-center', // منتصف
-      Image: '../../../../images/slider-image-1.jpeg',
-    },
-    {
-      id: 'slide-2',
-      text: 'وصل حديثاً',
-      positionClass: 'items-end justify-start',
-      Image: '../../../../images/slider-image-2.jpeg',
-    },
-  ]);
+  // slidesStore = signal<any[]>([
+  //   {
+  //     id: 'slide-1',
+  //     text: 'عرض خاص',
+  //     positionClass: 'items-center justify-center', // منتصف
+  //     Image: '../../../../images/slider-image-1.jpeg',
+  //   },
+  //   {
+  //     id: 'slide-2',
+  //     text: 'وصل حديثاً',
+  //     positionClass: 'items-end justify-start',
+  //     Image: '../../../../images/slider-image-2.jpeg',
+  //   },
+  // ]);
 }

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { environment } from '../../../../../../environment/environment.prod';
 import { Observable } from 'rxjs';
 import { AuthServices } from '../../../../../core/layouts/auth/services/auth-services';
@@ -12,30 +12,56 @@ export class CartServices {
   private http = inject(HttpClient);
   private authServices = inject(AuthServices);
 
+  cartNumber = signal<number>(0);
+
   private get myHeaders() {
     return {
       token: this.authServices.getToken() || '',
     };
   }
   addCard(productId: string): Observable<ICart> {
-    return this.http.post<ICart>(environment.baseUrl + 'cart', { productId }, { headers: this.myHeaders });
+    return this.http.post<ICart>(
+      environment.baseUrl + 'cart',
+      { productId },
+      { headers: this.myHeaders },
+    );
   }
 
   updateCard(count: string, productId: string): Observable<ICart> {
-    return this.http.put<ICart>(environment.baseUrl + 'cart/' + productId, count, {
-      headers: this.myHeaders,
-    });
+    return this.http.put<ICart>(
+      environment.baseUrl + 'cart/' + productId,
+      { count },
+      {
+        headers: this.myHeaders,
+      },
+    );
   }
 
   loggedCard(): Observable<ICart> {
     return this.http.get<ICart>(environment.baseUrl + 'cart', { headers: this.myHeaders });
   }
 
+getLoggedUserCart(): void {
+  this.loggedCard().subscribe({
+    next: (res) => {
+      this.cartNumber.set(res.numOfCartItems);
+      console.log('تم تحديث الرقم بنجاح:', res.numOfCartItems);
+    },
+    error: (err) => {
+      console.error('فشل في جلب بيانات السلة:', err);
+    }
+  });
+}
+
   removeItem(productId: string): Observable<ICart> {
-    return this.http.delete<ICart>(environment.baseUrl + 'cart/' + productId, { headers: this.myHeaders });
+    return this.http.delete<ICart>(environment.baseUrl + 'cart/' + productId, {
+      headers: this.myHeaders,
+    });
   }
 
   clearCard(): Observable<ICart> {
     return this.http.delete<ICart>(environment.baseUrl + 'cart', { headers: this.myHeaders });
   }
+
+
 }
