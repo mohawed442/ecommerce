@@ -1,12 +1,16 @@
-import { Component, signal } from '@angular/core';
+import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  imports: [RouterOutlet],
 })
 export class App {
-  protected readonly title = signal('e-commerce');
+  constructor(@Inject(PLATFORM_ID) platformId: Object) {
+    if (isPlatformBrowser(platformId)) {
+      import('flowbite').then((m) => m.initFlowbite());
+    }
+  }
 }

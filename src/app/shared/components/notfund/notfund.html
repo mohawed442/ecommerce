@@ -1,0 +1,50 @@
+<div class="flex flex-col items-center justify-center min-h-screen p-4 text-center"
+    [style.background-color]="'var(--color-light)'" [style.font-family]="'var(--font-family)'">
+
+    <div class="bg-white p-8 md:p-12 rounded-3xl shadow-xl max-w-lg w-full" [style.box-shadow]="'var(--color-shadow)'">
+
+        <div class="relative w-32 h-32 mx-auto mb-8 flex items-center justify-center">
+            <div class="absolute inset-0 opacity-20 rounded-full animate-ping"
+                [style.background-color]="'var(--color-main)'"></div>
+
+            <div class="relative text-white w-20 h-20 rounded-2xl rotate-12 flex items-center justify-center text-4xl font-black shadow-lg animate-bounce"
+                [style.background-color]="'var(--color-main)'">
+                !
+            </div>
+        </div>
+
+        <h1 class="text-7xl font-extrabold mb-2" [style.color]="'var(--color-main)'">
+            404
+        </h1>
+
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">أوبس! الصفحة غير موجودة</h2>
+
+        <p class="text-gray-500 mb-8 leading-relaxed">
+            يبدو أنك ضللت الطريق. الرابط الذي تحاول الوصول إليه غير متاح حالياً.
+        </p>
+
+        <div class="flex flex-col gap-3">
+            <a routerLink="/"
+                class="text-white py-4 px-8 rounded-xl font-bold transition-all hover:brightness-110 active:scale-95 shadow-md"
+                [style.background-color]="'var(--color-main)'">
+                العودة للرئيسية
+            </a>
+
+            <button onclick="history.back()"
+                class="border-2 border-gray-200 text-gray-600 py-3 px-8 rounded-xl font-bold hover:bg-gray-50 transition-all active:scale-95">
+                رجوع للخلف
+            </button>
+        </div>
+
+        <div class="mt-10 flex justify-center gap-1">
+            @for (star of [1,2,3,4,5]; track star) {
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24"
+                [style.fill]="'var(--color-rating)'">
+                <path
+                    d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.869 1.4-8.168L.132 9.21l8.2-1.192L12 .587z" />
+            </svg>
+            }
+        </div>
+
+    </div>
+</div>

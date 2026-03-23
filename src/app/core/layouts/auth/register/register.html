@@ -1,0 +1,63 @@
+<div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()"
+    class="max-w-md w-full space-y-6 bg-white p-8 rounded-xl shadow-lg">
+
+    <h2 class="text-center text-3xl font-extrabold text-gray-900">Register Now</h2>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Full Name</label>
+      <input formControlName="name" type="text"
+        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-brand focus:border-brand">
+      <validation-massages [controls]="registerForm.get('name')"></validation-massages>
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Email Address</label>
+      <input formControlName="email" type="email"
+        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-brand focus:border-brand">
+      <validation-massages [controls]="registerForm.get('email')"></validation-massages>
+    </div>
+
+    <div class="relative">
+      <label class="block text-sm font-medium text-gray-700">Password</label>
+      <input formControlName="password" [type]="showPasswordBoolean?'text':'password'"
+        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-brand focus:border-brand">
+      <i (click)="showPassword('password')" [class]="showPasswordBoolean ? 'fas fa-eye-slash' : 'fas fa-eye'"
+        class=" absolute right-2 top-10 cursor-pointer text-gray-500 "></i>
+      <validation-massages [controls]="registerForm.get('password')"></validation-massages>
+    </div>
+
+    <div class="relative">
+      <label class="block text-sm font-medium text-gray-700">Confirm Password</label>
+      <input formControlName="rePassword" [type]="showRePasswordBoolean?'text':'password'"
+        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-brand focus:border-brand">
+      <i (click)="showPassword('s')" [class]="showRePasswordBoolean ? 'fas fa-eye-slash' : 'fas fa-eye'"
+        class=" absolute right-2 top-10 cursor-pointer text-gray-500 "></i>
+      @if (registerForm.hasError('mismatch')) {
+      <p class="text-red-500 ">password is not match</p>
+      }
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Phone Number</label>
+      <input formControlName="phone" type="text"
+        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-brand focus:border-brand">
+      <validation-massages [controls]="registerForm.get('phone')"></validation-massages>
+    </div>
+
+
+    <button [disabled]="isLoading || registerForm.invalid" type="submit"
+      class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-gray-400">
+      @if (isLoading) {
+      <span class="animate-spin mr-2">...</span> Loading
+      } @else {
+      Submit
+      }
+    </button>
+    <p class="bg-red-500">
+      @if(apiError){
+      {{apiError}}
+      }
+    </p>
+  </form>
+</div>

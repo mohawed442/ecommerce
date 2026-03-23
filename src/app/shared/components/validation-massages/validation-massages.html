@@ -1,0 +1,42 @@
+@if (controls?.invalid && (controls?.dirty || controls?.touched)) {
+<div class="mt-3 space-y-1 text-xs transition-all">
+
+    @if (controls?.hasError('required')) {
+    <p class="text-red-500 font-bold">● This field is required.</p>
+    }
+
+    @if (controls?.hasError('email')) {
+    <p class="text-red-500">● Please enter a valid email address.</p>
+    }
+    @if (controls?.hasError('minlength')) {
+    <p class="text-red-500">minlength 3 length</p>
+    }
+    @if (controls?.hasError('maxlength')) {
+    <p class="text-red-500">maxlength 20 length</p>
+    }
+
+    @let patternErr = controls?.getError('pattern')?.requiredPattern;
+
+    @if (patternErr && patternErr.toString().includes('01')) {
+    <p class="text-red-500 font-semibold">● Please enter a valid Egyptian phone number (11 digits).</p>
+    }
+
+    @if ( (patternErr && !patternErr.toString().includes('01'))) {
+    <div class="password-requirements">
+        @if (!controls?.value?.match('(?=.*[A-Z])')) {
+        <p class="text-red-500">● Must include an uppercase letter (A-Z).</p>
+        }
+        @if (!controls?.value?.match('(?=.*[a-z])')) {
+        <p class="text-red-500">● Must include a lowercase letter (a-z).</p>
+        }
+        @if (!controls?.value?.match('(?=.*[0-9])')) {
+        <p class="text-red-500">● Must include at least one number.</p>
+        }
+        @if (!controls?.value?.match('(?=.*[@$!%*?&])')) {
+        <p class="text-red-500">● Must include a special character.</p>
+        }
+    </div>
+    }
+
+</div>
+}

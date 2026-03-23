@@ -1,0 +1,11 @@
+import { Component } from '@angular/core';
+import { Nevbar } from '../../../../shared/components/nevbar/nevbar';
+import { RouterOutlet } from '@angular/router';
+
+@Component({
+  selector: 'app-user',
+  imports: [Nevbar, RouterOutlet],
+  templateUrl: './user.html',
+  styleUrl: './user.css',
+})
+export class User {}
