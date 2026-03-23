@@ -3,6 +3,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AuthServices } from '../services/auth-services';
 import { ValidationMassages } from '../../../../shared/components/validation-massages/validation-massages';
 import { Router } from '@angular/router';
+import { Notification } from '../../../services/notification';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +14,7 @@ import { Router } from '@angular/router';
 export class Login {
   private _authServices = inject(AuthServices);
   private _router = inject(Router);
+  private _notification = inject(Notification);
   apiError: string = '';
 
   loginAuth = new FormGroup({
@@ -32,6 +34,7 @@ export class Login {
     this._authServices.login(this.loginAuth.value).subscribe({
       next: (res: any) => {
         this._authServices.setToken(res.token);
+        this._notification.show('Login successfully', 'success' , {duration: 3000, position: 'top-right'});
         this._router.navigate(['home']);
       },
       error: (err) => {
