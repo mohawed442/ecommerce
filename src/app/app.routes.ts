@@ -11,6 +11,7 @@ import { authGuard } from './core/guards/auth-guard';
 import { authLogoutGuard } from './core/guards/auth-logout-guard';
 import { Cart } from './features/product/components/cart/components/cart/cart';
 import { OrderCash } from './features/order/components/order-cash/order-cash';
+import { Orders } from './features/order/components/orders/orders';
 
 export const routes: Routes = [
   {
@@ -22,7 +23,8 @@ export const routes: Routes = [
       { path: 'home', component: Home, title: 'home' },
       { path: 'products', component: Product, title: 'products' },
       { path: 'product-details/:id', component: ProductDetails, title: 'product-details' },
-      { path: 'order/:id', component: OrderCash, title: 'order' },
+      { path: 'orders', component: Orders, title: 'orders' },
+      { path: 'order/:id', component: OrderCash, title: 'pay-order' },
       { path: 'cart', component: Cart, title: 'cart' },
     ],
   },

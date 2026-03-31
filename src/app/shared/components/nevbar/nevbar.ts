@@ -15,9 +15,11 @@ export class Nevbar {
   
   @Input() layout!: string;
   
-  private readonly _cartService = inject(CartServices);
+  public readonly _cartService = inject(CartServices);
   auth = inject(AuthServices);
   router = inject(Router);
+
+  cartCount = this._cartService.cartNumber;
 
   logout() {
     this.auth.logout();

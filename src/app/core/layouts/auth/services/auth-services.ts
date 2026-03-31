@@ -72,8 +72,9 @@ export class AuthServices {
     }
   }
 
-  decodeToken(token: string): void {
+  decodeToken(token: string): any {
     const decoded = jwtDecode(token);
     console.log(decoded);
+    return decoded;
   }
 }

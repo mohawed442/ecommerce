@@ -1,23 +1,28 @@
 <section
-    class="max-w-md mx-auto bg-white dark:bg-gray-900 p-6 rounded-xl shadow-lg border border-gray-100 dark:border-gray-800">
-    <form [formGroup]="shippingForm" (ngSubmit)="onSubmit()">
+    class="my-10 max-w-md mx-auto bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-800 transition-all hover:shadow-blue-100 dark:hover:shadow-none">
+    <form [formGroup]="shippingForm">
 
         <div formGroupName="shippingAddress">
-
-            <h2 class="text-xl font-bold mb-6 text-gray-800 dark:text-white flex items-center">
-                <svg class="w-5 h-5 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-                    <path
-                        d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z">
-                    </path>
-                </svg>
+            <h2 class="text-2xl font-extrabold mb-8 text-gray-800 dark:text-white flex items-center gap-3">
+                <div class="p-2 bg-blue-100 dark:bg-blue-900 rounded-lg">
+                    <svg class="w-6 h-6 text-main dark:text-blue-300" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
+                        </path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                </div>
                 تفاصيل الشحن
             </h2>
 
-            <div class="mb-5">
-                <label for="city" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">المدينة</label>
+            <div class="mb-6">
+                <label for="city"
+                    class="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">المدينة</label>
                 <select id="city" formControlName="city"
-                    [class]="shippingForm.get('shippingAddress.city')?.invalid && shippingForm.get('shippingAddress.city')?.touched ? 'bg-red-50 border-red-500 text-red-900 focus:ring-red-500 focus:border-red-500' : 'bg-gray-50 border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500'"
-                    class="border text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                    [class]="shippingForm.get('shippingAddress.city')?.invalid && shippingForm.get('shippingAddress.city')?.touched ? 'border-red-500 ring-red-100' : 'border-gray-300 focus:ring-blue-500'"
+                    class="bg-gray-50 border text-sm rounded-xl block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:ring-4 transition-all outline-none">
                     <option value="" disabled selected>اختر مدينتك</option>
                     <option value="Cairo">القاهرة</option>
                     <option value="Alexandria">الإسكندرية</option>
@@ -25,33 +30,61 @@
                 </select>
             </div>
 
-            <div class="mb-5">
-                <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">رقم
+            <div class="mb-6">
+                <label for="phone" class="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">رقم
                     الهاتف</label>
                 <input type="tel" id="phone" formControlName="phone"
-                    [class]="shippingForm.get('shippingAddress.phone')?.invalid && shippingForm.get('shippingAddress.phone')?.touched ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500'"
-                    class="bg-gray-50 border text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:text-white"
+                    [class]="shippingForm.get('shippingAddress.phone')?.invalid && shippingForm.get('shippingAddress.phone')?.touched ? 'border-red-500' : 'border-gray-300'"
+                    class="bg-gray-50 border text-sm rounded-xl block w-full p-3 dark:bg-gray-700 dark:text-white focus:ring-4 focus:ring-blue-100 transition-all outline-none"
                     placeholder="010xxxxxxx">
                 <p *ngIf="shippingForm.get('shippingAddress.phone')?.invalid && shippingForm.get('shippingAddress.phone')?.touched"
-                    class="mt-2 text-xs text-red-600">
-                    يرجى إدخال رقم هاتف مصري صحيح.
+                    class="mt-2 text-xs text-red-600 font-medium italic">
+                    * يرجى إدخال رقم هاتف مصري صحيح.
                 </p>
             </div>
 
-            <div class="mb-6">
-                <label for="details" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">العنوان
+            <div class="mb-8">
+                <label for="details" class="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">العنوان
                     بالتفصيل</label>
                 <textarea id="details" formControlName="details" rows="3"
-                    [class]="shippingForm.get('shippingAddress.details')?.invalid && shippingForm.get('shippingAddress.details')?.touched ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500'"
-                    class="bg-gray-50 border text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:text-white"
-                    placeholder="الشارع، رقم العمارة، الشقة..."></textarea>
+                    [class]="shippingForm.get('shippingAddress.details')?.invalid && shippingForm.get('shippingAddress.details')?.touched ? 'border-red-500' : 'border-gray-300'"
+                    class="bg-gray-50 border text-sm rounded-xl block w-full p-3 dark:bg-gray-700 dark:text-white focus:ring-4 focus:ring-blue-100 transition-all outline-none"
+                    placeholder="اسم الشارع، رقم العمارة..."></textarea>
             </div>
-
         </div>
 
-        <button type="submit" [disabled]="shippingForm.invalid"
-            class="text-white bg-blue-700 hover:bg-blue-800 disabled:bg-gray-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-3 text-center transition-all">
-            إتمام الطلب
-        </button>
+        <div class="flex flex-col gap-4 mt-8">
+            <button type="button" (click)="onSubmit()" [disabled]="shippingForm.invalid" class="group relative flex items-center justify-center gap-3 overflow-hidden rounded-xl bg-[#0aad0a] px-6 py-4 text-sm font-bold text-white transition-all 
+               enabled:cursor-pointer enabled:hover:bg-[#099609] enabled:hover:shadow-lg enabled:active:scale-[0.98] 
+               disabled:bg-gray-300 disabled:cursor-not-allowed">
+
+                <div
+                    class="absolute inset-0 flex h-full w-full justify-center [transform:skew(-12deg)_translateX(-100%)] 
+                    group-enabled:group-hover:duration-1000 group-enabled:group-hover:[transform:skew(-12deg)_translateX(100%)]">
+                    <div class="relative h-full w-8 bg-white/20"></div>
+                </div>
+
+                <svg class="h-6 w-6 transition-transform group-enabled:group-hover:scale-110" fill="none"
+                    stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z">
+                    </path>
+                </svg>
+                <span class="relative">إتمام الطلب (نقداً)</span>
+            </button>
+
+            <button type="button" (click)="payVisa()" [disabled]="shippingForm.invalid" class="group flex items-center justify-center gap-3 rounded-xl border-2 border-[#0aad0a] bg-transparent px-6 py-4 text-sm font-bold text-[#0aad0a] transition-all 
+               enabled:cursor-pointer enabled:hover:bg-[#0aad0a]/5 enabled:active:scale-[0.98] 
+               disabled:border-gray-300 disabled:text-gray-400 disabled:cursor-not-allowed">
+
+                <svg class="h-6 w-6 transition-transform group-enabled:group-hover:rotate-12" fill="none"
+                    stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z">
+                    </path>
+                </svg>
+                <span>دفع عبر الإنترنت (فيزا)</span>
+            </button>
+        </div>
     </form>
 </section>

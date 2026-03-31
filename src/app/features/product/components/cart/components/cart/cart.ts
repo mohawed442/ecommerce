@@ -51,7 +51,6 @@ export class Cart implements OnInit {
   order() {
     const cartId = this.cartData?.data?._id;
     if (cartId) {
-      // 2. الانتقال لصفحة الدفع مع تمرير الـ ID
       this.router.navigate(['/order', cartId]);
     } else {
       this.notification.show('عذراً، فشل الوصول لبيانات السلة', 'error');
