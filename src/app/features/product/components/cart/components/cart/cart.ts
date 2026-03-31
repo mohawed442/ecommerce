@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { CartServices } from '../../services/cart-services';
 import { ICart } from '../../models/icart';
 import { Loading } from '../../../../../../shared/components/loading/loading';
-import { RouterLink } from "@angular/router";
+import { Router, RouterLink } from '@angular/router';
 import { Notification } from '../../../../../../core/services/notification';
 
 @Component({
@@ -14,19 +14,20 @@ import { Notification } from '../../../../../../core/services/notification';
 export class Cart implements OnInit {
   private readonly cartServices = inject(CartServices);
   private readonly _cdr = inject(ChangeDetectorRef);
-    private readonly notification = inject(Notification);
-  
+  private readonly notification = inject(Notification);
+  private readonly router = inject(Router);
+
   cartData: ICart = {} as ICart;
   isLoading: boolean = false;
   bIsLoading: boolean = false;
-
+  cardId: string = '';
 
   updateCount(productId: string, count: number) {
-    this.bIsLoading=true
+    this.bIsLoading = true;
     this.cartServices.updateCard(count.toString(), productId).subscribe((res) => {
       this.cartData = res;
       this.notification.show('Cart updated!', 'success');
-      this.bIsLoading=false
+      this.bIsLoading = false;
       this._cdr.detectChanges();
     });
   }
@@ -45,6 +46,16 @@ export class Cart implements OnInit {
       this.notification.show('Cart cleared!', 'success');
       this._cdr.detectChanges();
     });
+  }
+
+  order() {
+    const cartId = this.cartData?.data?._id;
+    if (cartId) {
+      // 2. الانتقال لصفحة الدفع مع تمرير الـ ID
+      this.router.navigate(['/order', cartId]);
+    } else {
+      this.notification.show('عذراً، فشل الوصول لبيانات السلة', 'error');
+    }
   }
 
   getProducts() {

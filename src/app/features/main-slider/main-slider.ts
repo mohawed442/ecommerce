@@ -1,4 +1,5 @@
-import { Component, signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, inject, signal } from '@angular/core';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
@@ -8,6 +9,9 @@ import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
   styleUrl: './main-slider.css',
 })
 export class MainSlider {
+
+  private http = inject(HttpClient);
+
   customOptions: OwlOptions = {
     loop: true,
     mouseDrag: true,
@@ -20,7 +24,7 @@ export class MainSlider {
     autoplaySpeed: 1000,
 
     navSpeed: 700,
-    navText: ['<i class="fa fa-arrow-left"></i>', '<i class="fa fa-arrow-right"></i>'],
+    navText: [ '<i class="fa fa-arrow-left"></i>' , '<i class="fa fa-arrow-right"></i>' ],
     responsive: {
       0: {
         items: 1,
@@ -37,6 +41,9 @@ export class MainSlider {
     },
     nav: true,
   };
+
+
+
 
   // slidesStore = signal<any[]>([
   //   {

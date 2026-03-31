@@ -1,0 +1,57 @@
+<section
+    class="max-w-md mx-auto bg-white dark:bg-gray-900 p-6 rounded-xl shadow-lg border border-gray-100 dark:border-gray-800">
+    <form [formGroup]="shippingForm" (ngSubmit)="onSubmit()">
+
+        <div formGroupName="shippingAddress">
+
+            <h2 class="text-xl font-bold mb-6 text-gray-800 dark:text-white flex items-center">
+                <svg class="w-5 h-5 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                        d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z">
+                    </path>
+                </svg>
+                تفاصيل الشحن
+            </h2>
+
+            <div class="mb-5">
+                <label for="city" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">المدينة</label>
+                <select id="city" formControlName="city"
+                    [class]="shippingForm.get('shippingAddress.city')?.invalid && shippingForm.get('shippingAddress.city')?.touched ? 'bg-red-50 border-red-500 text-red-900 focus:ring-red-500 focus:border-red-500' : 'bg-gray-50 border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500'"
+                    class="border text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                    <option value="" disabled selected>اختر مدينتك</option>
+                    <option value="Cairo">القاهرة</option>
+                    <option value="Alexandria">الإسكندرية</option>
+                    <option value="Giza">الجيزة</option>
+                </select>
+            </div>
+
+            <div class="mb-5">
+                <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">رقم
+                    الهاتف</label>
+                <input type="tel" id="phone" formControlName="phone"
+                    [class]="shippingForm.get('shippingAddress.phone')?.invalid && shippingForm.get('shippingAddress.phone')?.touched ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500'"
+                    class="bg-gray-50 border text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:text-white"
+                    placeholder="010xxxxxxx">
+                <p *ngIf="shippingForm.get('shippingAddress.phone')?.invalid && shippingForm.get('shippingAddress.phone')?.touched"
+                    class="mt-2 text-xs text-red-600">
+                    يرجى إدخال رقم هاتف مصري صحيح.
+                </p>
+            </div>
+
+            <div class="mb-6">
+                <label for="details" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">العنوان
+                    بالتفصيل</label>
+                <textarea id="details" formControlName="details" rows="3"
+                    [class]="shippingForm.get('shippingAddress.details')?.invalid && shippingForm.get('shippingAddress.details')?.touched ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500'"
+                    class="bg-gray-50 border text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:text-white"
+                    placeholder="الشارع، رقم العمارة، الشقة..."></textarea>
+            </div>
+
+        </div>
+
+        <button type="submit" [disabled]="shippingForm.invalid"
+            class="text-white bg-blue-700 hover:bg-blue-800 disabled:bg-gray-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-3 text-center transition-all">
+            إتمام الطلب
+        </button>
+    </form>
+</section>
