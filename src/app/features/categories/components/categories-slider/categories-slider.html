@@ -1,0 +1,15 @@
+<div class="my-24">
+  @if (slidesStore().length > 0) {
+  <owl-carousel-o [options]="customOptions">
+    @for (category of slidesStore(); track category._id) {
+    <ng-template carouselSlide>
+      <div [owlRouterLink]="['/category', category.slug]" class="mx-2 overflow-hidden">
+        <img [src]="category.image" [alt]="category.name" class="rounded-lg shadow h-48 w-full object-contain">
+        <p class="text-center mt-2 font-bold">{{ category.name }}</p>
+      </div>
+    </ng-template>
+    }
+  </owl-carousel-o>
+  }
+</div>
+

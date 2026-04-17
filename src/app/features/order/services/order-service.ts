@@ -18,23 +18,20 @@ export class OrderService {
   }
 
   orderCash(addressDetails: any, cartId: string): Observable<any> {
-    return this.http.post(
-      `${environment.baseUrl}orders/${cartId}`,
-      { shippingAddress: addressDetails },
-      { headers: this.myHeaders },
-    );
+    return this.http.post(`${environment.baseUrl}orders/${cartId}`, {
+      shippingAddress: addressDetails,
+    });
   }
 
   orderVisa(addressDetails: any, cartId: string): Observable<any> {
     return this.http.post(
       `${environment.baseUrl}orders/checkout-session/${cartId}?url=${this.url}`,
       { shippingAddress: addressDetails },
-      { headers: this.myHeaders },
     );
   }
 
   getOrders(): Observable<any> {
     const idUser = this.authServices.decodeToken(this.myHeaders.token);
-    return this.http.get(`${environment.baseUrl}orders/user/${idUser.id}`, { headers: this.myHeaders });
+    return this.http.get(`${environment.baseUrl}orders/user/${idUser.id}`);
   }
 }

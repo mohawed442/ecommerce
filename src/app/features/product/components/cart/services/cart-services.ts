@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { environment } from '../../../../../../environment/environment.prod';
 import { Observable, tap } from 'rxjs';
-import { AuthServices } from '../../../../../core/layouts/auth/services/auth-services';
 import { ICart } from '../models/icart';
 
 @Injectable({
@@ -10,37 +9,21 @@ import { ICart } from '../models/icart';
 })
 export class CartServices {
   private http = inject(HttpClient);
-  private authServices = inject(AuthServices);
-
   cartNumber = signal<number>(0);
-
-  private get myHeaders() {
-    return {
-      token: this.authServices.getToken() || '',
-    };
-  }
   addCard(productId: string): Observable<ICart> {
-    return this.http
-      .post<ICart>(environment.baseUrl + 'cart', { productId }, { headers: this.myHeaders })
-      .pipe(
-        tap((res: any) => {
-          this.cartNumber.set(res.numOfCartItems);
-        }),
-      );
-  }
-
-  updateCard(count: string, productId: string): Observable<ICart> {
-    return this.http.put<ICart>(
-      environment.baseUrl + 'cart/' + productId,
-      { count },
-      {
-        headers: this.myHeaders,
-      },
+    return this.http.post<ICart>(environment.baseUrl + 'cart', { productId }).pipe(
+      tap((res: any) => {
+        this.cartNumber.set(res.numOfCartItems);
+      }),
     );
   }
 
+  updateCard(count: string, productId: string): Observable<ICart> {
+    return this.http.put<ICart>(environment.baseUrl + 'cart/' + productId, { count });
+  }
+
   loggedCard(): Observable<ICart> {
-    return this.http.get<ICart>(environment.baseUrl + 'cart', { headers: this.myHeaders });
+    return this.http.get<ICart>(environment.baseUrl + 'cart');
   }
 
   getLoggedUserCart(): void {
@@ -55,19 +38,15 @@ export class CartServices {
   }
 
   removeItem(productId: string): Observable<ICart> {
-    return this.http
-      .delete<ICart>(environment.baseUrl + 'cart/' + productId, {
-        headers: this.myHeaders,
-      })
-      .pipe(
-        tap((res: any) => {
-          this.cartNumber.set(res.numOfCartItems);
-        }),
-      );
+    return this.http.delete<ICart>(environment.baseUrl + 'cart/' + productId).pipe(
+      tap((res: any) => {
+        this.cartNumber.set(res.numOfCartItems);
+      }),
+    );
   }
 
   clearCard(): Observable<ICart> {
-    return this.http.delete<ICart>(environment.baseUrl + 'cart', { headers: this.myHeaders }).pipe(
+    return this.http.delete<ICart>(environment.baseUrl + 'cart').pipe(
       tap((res: any) => {
         this.cartNumber.set(res.numOfCartItems);
       }),

@@ -4,10 +4,11 @@ import { OrderService } from '../../services/order-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { isPlatformBrowser, NgIf } from '@angular/common';
 import { Notification } from '../../../../core/services/notification';
+import { CartServices } from '../../../product/components/cart/services/cart-services';
 
 @Component({
   selector: 'app-order-cash',
-  standalone: true, // تأكد من وجودها إذا كنت تستخدم Angular الحديثة
+  standalone: true, 
   imports: [ReactiveFormsModule, NgIf],
   templateUrl: './order-cash.html',
   styleUrl: './order-cash.css',
@@ -21,10 +22,10 @@ export class OrderCash implements OnInit {
   private readonly notification = inject(Notification);
   private readonly router = inject(Router);
   private readonly platformId = inject(PLATFORM_ID);
+  private readonly cartServices = inject(CartServices);
   id: string = '';
 
   ngOnInit(): void {
-    // 1. جلب الـ ID فور تحميل المكون
     this.id = this.activatedRoute.snapshot.paramMap.get('id') || '';
 
     this.shippingForm = this.fb.group({
@@ -46,6 +47,8 @@ export class OrderCash implements OnInit {
           next: (res) => {
             this.notification.show('Order placed successfully', 'success');
             this.router.navigate(['home']);
+
+            this.cartServices.cartNumber.set(0);
           },
           error: (err) => {
             this.notification.show('Order failed', 'error');
@@ -71,6 +74,8 @@ export class OrderCash implements OnInit {
               }, 500);
             }
           }
+
+          this.cartServices.cartNumber.set(0);
         },
         error: (err) => {
           this.notification.show('Order failed', 'error');
@@ -78,3 +83,32 @@ export class OrderCash implements OnInit {
       });
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+console.log("HEELO world")
+
+
+
+
+
+

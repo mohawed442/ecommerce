@@ -1,11 +1,10 @@
-<div class="fixed inset-0 flex items-center justify-center bg-white/75 z-50">
-
-    <div class="relative flex items-center justify-center">
-
-        <div class="w-16 h-16 border-4 border-t-transparent border-[#0aad0a] rounded-full animate-spin"></div>
-
-        <div class="absolute w-10 h-10 border-4 border-b-transparent border-[#ffc908] rounded-full animate-spin-slow">
-        </div>
-
-    </div>
-</div>
+@if (loadingService.loading$ | async) {
+  <div class="fixed inset-0 flex items-center justify-center bg-white/75 z-[9999]">
+      <div class="relative flex items-center justify-center">
+          <div class="w-16 h-16 border-4 border-t-transparent border-[#0aad0a] rounded-full animate-spin"></div>
+          
+          <div class="absolute w-10 h-10 border-4 border-b-transparent border-[#ffc908] rounded-full animate-[spin_2s_linear_infinite]">
+          </div>
+      </div>
+  </div>
+}

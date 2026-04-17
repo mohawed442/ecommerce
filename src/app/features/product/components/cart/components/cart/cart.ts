@@ -1,13 +1,12 @@
 import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { CartServices } from '../../services/cart-services';
 import { ICart } from '../../models/icart';
-import { Loading } from '../../../../../../shared/components/loading/loading';
 import { Router, RouterLink } from '@angular/router';
 import { Notification } from '../../../../../../core/services/notification';
 
 @Component({
   selector: 'app-cart',
-  imports: [Loading, RouterLink],
+  imports: [ RouterLink],
   templateUrl: './cart.html',
   styleUrl: './cart.css',
 })

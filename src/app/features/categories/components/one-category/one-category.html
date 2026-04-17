@@ -1,0 +1,26 @@
+<section class="py-10 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 ">
+            @for ( product of product; track product._id ) {
+            <app-card [product]="product"></app-card>
+            }@empty {
+                <div class="col-span-full flex flex-col items-center justify-center py-20 text-center">
+                    <div class="mb-6 rounded-full bg-gray-100 p-6">
+                        <svg class="h-16 w-16 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-700">No products available</h3>
+                    <p class="mt-2 text-gray-500">We are working on adding more properties.</p>
+
+                    <button (click)="getProductByCategory()"
+                        class="cursor-pointer mt-8 rounded-full bg-main px-8 py-2 font-bold text-gray-800 transition-colors hover:bg-green-400">
+                        Refresh Products
+                    </button>
+                </div>
+            
+            }
+        </div>
+    </div>
+</section>

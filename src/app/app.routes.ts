@@ -12,7 +12,9 @@ import { authLogoutGuard } from './core/guards/auth-logout-guard';
 import { Cart } from './features/product/components/cart/components/cart/cart';
 import { OrderCash } from './features/order/components/order-cash/order-cash';
 import { Orders } from './features/order/components/orders/orders';
-
+import { CategoriesSlider } from './features/categories/components/categories-slider/categories-slider';
+import { Categories } from './features/categories/components/categories/categories';
+import { OneCategory } from './features/categories/components/one-category/one-category';
 export const routes: Routes = [
   {
     path: '',
@@ -26,6 +28,9 @@ export const routes: Routes = [
       { path: 'orders', component: Orders, title: 'orders' },
       { path: 'order/:id', component: OrderCash, title: 'pay-order' },
       { path: 'cart', component: Cart, title: 'cart' },
+      { path: 'categories', component: Categories, title: 'Categories' },
+      { path: 'category/:slug', component: OneCategory, title: 'Categories' },
+
     ],
   },
   {

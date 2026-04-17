@@ -1,7 +1,9 @@
 <div class="mx-auto">
   <owl-carousel-o [options]="customOptions">
 
+
     <ng-template carouselSlide>
+      <ng-content select="[div]"></ng-content>
       <div class="w-full h-[300px] md:h-[570px]  rounded-xl shadow-lg">
         <img src="../../../../images/slider-image-1.jpeg" class="w-full h-full object-cover" alt="Slider 1">
       </div>
