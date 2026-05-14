@@ -7,6 +7,10 @@ export const loadingInterceptor: HttpInterceptorFn = (req, next) => {
 
   const loadingServices = inject(LoadingServices);
   
+if (req.headers.has('Skip-Loading')) {
+    return next(req);
+  } 
+
   loadingServices.show();
   return next(req).pipe(
     finalize(() => loadingServices.hide())

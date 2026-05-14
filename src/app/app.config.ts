@@ -3,7 +3,7 @@ import {
   importProvidersFrom,
   provideBrowserGlobalErrorListeners,
 } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withHashLocation } from '@angular/router';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 
 import { routes } from './app.routes';
@@ -14,7 +14,7 @@ import { loadingInterceptor } from './core/interceptors/loading-interceptor';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideRouter(routes),
+    provideRouter(routes,withHashLocation()),
     provideClientHydration(withEventReplay()),
     provideHttpClient(withFetch(), withInterceptors([AuthInterceptor , loadingInterceptor])) ,
     importProvidersFrom([CarouselModule]),
